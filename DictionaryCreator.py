@@ -1,13 +1,9 @@
 import itertools
 from collections import defaultdict, Counter
-
+import regex
 from bs4 import BeautifulSoup
 import re
 import os
-
-'''
-
-'''
 
 inputDir = os.curdir
 
@@ -27,8 +23,14 @@ texts = []
 
 
 def reSub(line):
-    line = re.sub(r'[^\w\s-]', '', line)
-    return line
+    line = regex.sub(r'\p{Pd}', '-', line)
+    # line = re.sub(r'[^\w\s־-–־]', '', line)
+    line = re.sub(r'[^\"\w\s-]', '', line)
+    words = line.split()
+    for i in range(len(words)):
+        words[i] = re.sub(r'^[\"-]', '', words[i])
+        words[i] = re.sub(r'[\"-]$', '', words[i])
+    return words
 
 
 for currentpath, folders, files in os.walk(inputDir):
@@ -37,18 +39,13 @@ for currentpath, folders, files in os.walk(inputDir):
             content = parseAct(currentpath + "/" + file)
             lines = []
             for line in content:
-                line = reSub(line)
-                texts.append(line.split())
+                words = reSub(line)
+                texts.append(words)
 
 
 all_words = list(itertools.chain.from_iterable(texts))
-print(len(all_words))
 
-WORDS = Counter(itertools.chain.from_iterable(texts))
-print(len(WORDS))
+# WORDS = Counter(itertools.chain.from_iterable(texts))
+print()
 
-
-def P(word, N=sum(WORDS.values())):
-    "Probability of `word`."
-    return WORDS[word] / N
 

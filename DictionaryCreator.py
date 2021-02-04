@@ -34,8 +34,11 @@ def reSub(line):
 
 
 for currentpath, folders, files in os.walk(inputDir):
+    if len(texts) >= 10:
+        break
     for file in files:
         if file.endswith(".xml"):
+            print(currentpath)
             content = parseAct(currentpath + "/" + file)
             lines = []
             for line in content:

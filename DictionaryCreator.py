@@ -20,7 +20,7 @@ def parseAct(xmlFile):
 
 
 def IsClause(word):
-    return re.match(r'\(M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\)$', word.upper()) or \
+    return re.match(r'\((XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\)$', word.upper()) or \
            re.match(r'\(\w\)$', word) or \
            re.match(r'\(\D\d+\)$', word) or \
            re.match(r'\(\d+\D\)$', word)

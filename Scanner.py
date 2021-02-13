@@ -6,11 +6,14 @@ from DictionaryCreator import *
 from nltk import bigrams
 import copy
 import json
+
 baseDir = 'C:\\Users\\Ohad\\PycharmProjects\\OcrErrorDetection\\PDF_DOC\\'  # Starting directory for directory walk
 
 
 def IsValid(word, dictionary):
-    return word in dictionary or re.match('^\d+$', word)
+    valid = lambda w: w in dictionary or re.match('^\d+$', w) or '"' in w or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', w)
+    return valid(word) or all(valid(w) for w in word.split('-'))
+    # return word in dictionary or re.match('^\d+$', word) or '"' in word
 
 
 def IsUndefinedNumber(num):

@@ -4,7 +4,6 @@ from docx2txt import docx2txt
 
 baseDir = 'C:\\Users\\Ohad\\PycharmProjects\\OcrErrorDetection\\PDF_DOC'  # Starting directory for directory walk
 
-
 word = win32com.client.Dispatch("Word.application")
 
 for dir_path, dirs, files in os.walk(baseDir):

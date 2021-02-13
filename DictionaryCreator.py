@@ -28,23 +28,28 @@ def IsClause(word):
 
 def reSub(line):
     line = regex.sub(r'\p{Pd}', '-', line)
-    if 'CD' in line:
-        print()
-    if 'MCM' in line:
+    if 'אלול' in line:
         print()
     # line = re.sub(r'[^\w\s־-–־]', '', line)
     # line = re.sub(r'[^\".\w\s-]', '', line)
     words = line.split()
-    output = []
+    # output = []
     for i in range(len(words)):
-        # (re.match(r'\(\w+\)', )
-        if not IsClause(words[i]):
-            words[i] = re.sub(r'[^\".\w\s-]', '', words[i])
-            words[i] = re.sub(r'^[\"-.]', '', words[i])
-            words[i] = re.sub(r'[\"-.]$', '', words[i])
-            output.append(words[i])
-    output = list(filter(lambda a: a != '', output))
-    return output
+        # clause
+        words[i] = re.sub(r'^\((XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\)', '', words[i])
+        words[i] = re.sub(r'^\((xc|xl|l?x{0,3})(ix|iv|v?i{0,3})\)', '', words[i])
+        words[i] = re.sub(r'^\(\w\)', '', words[i])
+        words[i] = re.sub(r'\(\D\d+\)', '', words[i])
+        words[i] = re.sub(r'\(\d+\D\)', '', words[i])
+        # rest
+        words[i] = re.sub(r'[^\".\'\w\s-]', '', words[i])
+        words[i] = re.sub(r'^[\"-.]', '', words[i])
+        words[i] = re.sub(r'[-.\"]$', '', words[i])
+        if words[i].count("'") > 1:
+            words[i].strip("'")
+            # output.append(words[i])
+    words = list(filter(lambda a: a != '', words))
+    return words
 
 
 def CreateDictionary(inputDir):

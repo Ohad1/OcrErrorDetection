@@ -8,6 +8,7 @@ from nltk import bigrams
 import copy
 import json
 
+
 # ----------------------- HELP FUNCTIONS ------------------------
 
 def IsValid(word, dictionary):
@@ -15,26 +16,32 @@ def IsValid(word, dictionary):
     return valid(word) or all(valid(w) for w in word.split('-'))
     # return word in dictionary or re.match('^\d+$', word) or '"' in word
 
+
 def IsUndefinedNumber(num):
     match = re.match('^[1-9]\d{4,5}$', num)
     return match is not None
+
 
 def IsYear(year):
     match = re.match('[1-3][0-9]{3}$', year)
     return match is not None
 
+
 def IsAppendix(appendix):
     match = re.match('^[1-9]\d{0,1}$', appendix)
     return match is not None
 
+
 def IsLetter(docWord):
     return re.match('^[a-z\u0590-\u05fe]$', docWord)
+
 
 def create_dict_from_sec_ocr(pdf_path):
     path_for_images = convert_pdf_to_image(pdf_path)
     change_extent_to_jpg(path_for_images)
     ocr_dict = ocr_on_images(path_for_images)
     return ocr_dict
+
 
 # ----------------------- END HELP FUNCTIONS ------------------------
 
@@ -66,8 +73,7 @@ print(len({w for w in docWords if w in dictionary}))
 print(len({w for w in docWords if w not in dictionary}))
 print(len(docWords))
 
-outputLines = copy.deepcopy(docLines)
-
+# outputLines = copy.deepcopy(docLines)
 
 for lineIndex, docLine in enumerate(docLines):
     for wordIndex, docWord in enumerate(docLine):

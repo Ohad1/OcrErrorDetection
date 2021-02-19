@@ -48,50 +48,60 @@ def create_dict_from_sec_ocr(pdf_path):
 baseDir = 'C:\\Users\\Ohad\\PycharmProjects\\OcrErrorDetection\\PDF_DOC\\'  # Starting directory for directory walk
 base_dir_shani = '/home/shanisam/OcrErrorDetection/pdf_for_ocr'
 
-docx_name = "146884.DOCx"
-pdf_name = "146884.PDF"
-# pdf_path = f"{baseDir}\\{pdf_name}"
-pdf_path = f"{base_dir_shani}/{pdf_name}"
-ocr_dict = create_dict_from_sec_ocr(pdf_path)
+
 # filename = os.path.join(baseDir, "416226.DOCx")
 # my_text = docx2txt.process(f"{baseDir}\\{docx_name}")
-my_text = docx2txt.process(f"{base_dir_shani}/{docx_name}")
-lines = my_text.split('\n\n')
-# print(my_text)
-docLines = []
-# dictionary = CreateDictionary('akn')
+
+# docWords = list(itertools.chain.from_iterable(docLines))
+# print(len({w for w in docWords if w in dictionary}))
+# print(len({w for w in docWords if w not in dictionary}))
+# print(len(docWords))
+
+
+def OcrWordToString(ocrWord):
+    return f'<error>{ocrWord["word"]}<error>' if ocrWord['isError'] else ocrWord["word"]
+
+
+def OcrLineToString(ocrLine):
+    line = [OcrWordToString(ocrWord) for ocrWord in ocrLine]
+    return " ".join(line)
+
+
 with open('dict.json') as json_file:
     dictionary = json.load(json_file)
 
-for line in lines:
-    # print(line)
-    words = reSub(line)
-    if words:
-        docLines.append(words)
-docWords = list(itertools.chain.from_iterable(docLines))
-print(len({w for w in docWords if w in dictionary}))
-print(len({w for w in docWords if w not in dictionary}))
-print(len(docWords))
 
-# outputLines = copy.deepcopy(docLines)
+def ErrorDetection(baseDir, filename):
+    filePath = f'{baseDir}\\{filename}'
+    docx_path = f"{filePath}.DOCx"
+    pdf_path = f"{filePath}.PDF"
+    txt_path = f"{filePath}.txt"
+    tesseractOcrDict = create_dict_from_sec_ocr(pdf_path)
+    my_text = docx2txt.process(docx_path)
+    lines = my_text.split('\n\n')
+    docLines = []
 
-for lineIndex, docLine in enumerate(docLines):
-    for wordIndex, docWord in enumerate(docLine):
-        if not IsValid(docWord, dictionary) or IsUndefinedNumber(docWord) or IsLetter(docWord):
-            outputLines[lineIndex][wordIndex] = f'<ש>{docWord}<ש>'
-    bg = list(bigrams(docLine))
-    for wordIndex, (w1, w2) in enumerate(bg):
-        if IsYear(w1) and IsAppendix(w2):
-            outputLines[lineIndex][wordIndex + 1] = f'<ש>{w2}<ש>'
-    print(outputLines[lineIndex])
+    for line in lines:
+        words = reSub(line)
+        if words:
+            docLines.append(words)
 
-# for line in outputLines:
-#     x = " ".join(line.reverse())
-outputLines = [" ".join(line) for line in outputLines]
-with open('147859_Output.txt', 'w', encoding='utf-8') as outFile:
-    for line in outputLines:
-        outFile.write(f'{line}\n')
-# print(f'{w1} {w2}')
+    ocrLines = list(map(lambda s: [{'word': word, 'isError': False} for word in s], docLines))
+    for lineIndex, ocrLine in enumerate(ocrLines):
+        for wordIndex, ocrWord in enumerate(ocrLine):
+            word = ocrLines[lineIndex][wordIndex]['word']
+            if not IsValid(word, dictionary) or IsUndefinedNumber(word) or IsLetter(word) or word not in tesseractOcrDict:
+                ocrLines[lineIndex][wordIndex]['isError'] = True
+        bg = list(bigrams(ocrLine))
+        for wordIndex, (w1, w2) in enumerate(bg):
+            if IsYear(w1['word']) and IsAppendix(w2['word']):
+                ocrLines[lineIndex][wordIndex + 1]['isError'] = True
+        print(ocrLines[lineIndex])
 
-# for w in docWords:
-#     print(w)
+    outputLines = [OcrLineToString(ocrLine) for ocrLine in ocrLines]
+    with open(txt_path, 'w', encoding='utf-8') as outFile:
+        for line in outputLines:
+            outFile.write(f'{line}\n')
+
+
+ErrorDetection(baseDir, '146884')

@@ -28,8 +28,6 @@ def IsClause(word):
 
 def reSub(line):
     line = regex.sub(r'\p{Pd}', '-', line)
-    if 'אלול' in line:
-        print()
     # line = re.sub(r'[^\w\s־-–־]', '', line)
     # line = re.sub(r'[^\".\w\s-]', '', line)
     words = line.split()

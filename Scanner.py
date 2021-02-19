@@ -7,7 +7,10 @@ from OCRScanner import *
 from nltk import bigrams
 import copy
 import json
+import hunspell
 
+spellchecker = hunspell.HunSpell('/usr/share/hunspell/he_IL.dic',
+                                 '/usr/share/hunspell/he_IL.aff')
 
 # ----------------------- HELP FUNCTIONS ------------------------
 
@@ -16,6 +19,22 @@ def IsValid(word, dictionary):
     return valid(word) or all(valid(w) for w in word.split('-'))
     # return word in dictionary or re.match('^\d+$', word) or '"' in word
 
+def IsError(word, dictionary, ocr_dict):
+    if IsUndefinedNumber(word) or IsLetter(word):
+        return True
+    
+    # if word in dictionary or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word):
+    if re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word):
+        return False
+    
+    if spellchecker.spell(word) and word in ocr_dict:
+        return False
+
+    if '-' not in word:
+        return True
+    
+    return any(IsError(w, dictionary, ocr_dict) for w in word.split('-'))    
+    
 
 def IsUndefinedNumber(num):
     match = re.match('^[1-9]\d{4,5}$', num)
@@ -72,7 +91,7 @@ with open('dict.json') as json_file:
 
 
 def ErrorDetection(baseDir, filename):
-    filePath = f'{baseDir}\\{filename}'
+    filePath = f'{baseDir}/{filename}'
     docx_path = f"{filePath}.DOCx"
     pdf_path = f"{filePath}.PDF"
     txt_path = f"{filePath}.txt"
@@ -90,8 +109,8 @@ def ErrorDetection(baseDir, filename):
     for lineIndex, ocrLine in enumerate(ocrLines):
         for wordIndex, ocrWord in enumerate(ocrLine):
             word = ocrLines[lineIndex][wordIndex]['word']
-            if not IsValid(word, dictionary) or IsUndefinedNumber(word) or IsLetter(word) or word not in tesseractOcrDict:
-                ocrLines[lineIndex][wordIndex]['isError'] = True
+            # if not IsValid(word, dictionary) or IsUndefinedNumber(word) or IsLetter(word) or (word not in tesseractOcrDict):
+            ocrLines[lineIndex][wordIndex]['isError'] = IsError(word, dictionary, tesseractOcrDict)
         bg = list(bigrams(ocrLine))
         for wordIndex, (w1, w2) in enumerate(bg):
             if IsYear(w1['word']) and IsAppendix(w2['word']):
@@ -104,4 +123,4 @@ def ErrorDetection(baseDir, filename):
             outFile.write(f'{line}\n')
 
 
-ErrorDetection(baseDir, '146884')
+ErrorDetection(base_dir_shani, '123')

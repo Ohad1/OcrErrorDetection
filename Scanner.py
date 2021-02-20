@@ -7,34 +7,34 @@ from OCRScanner import *
 from nltk import bigrams
 import copy
 import json
-import hunspell
 
-spellchecker = hunspell.HunSpell('/usr/share/hunspell/he_IL.dic',
-                                 '/usr/share/hunspell/he_IL.aff')
+
+# import hunspell
+#
+# spellchecker = hunspell.HunSpell('/usr/share/hunspell/he_IL.dic',
+#                                  '/usr/share/hunspell/he_IL.aff')
+class SpellCheckerStub:
+    def spell(self, word):
+        return True
+
+
+spellchecker = SpellCheckerStub()
 
 # ----------------------- HELP FUNCTIONS ------------------------
+THRESHOLD = 10
+ERROR = 'ש'
+
 
 def IsValid(word, dictionary):
     valid = lambda w: w in dictionary or re.match('^\d+$', w) or '"' in w or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', w)
     return valid(word) or all(valid(w) for w in word.split('-'))
     # return word in dictionary or re.match('^\d+$', word) or '"' in word
 
-def IsError(word, dictionary, ocr_dict):
-    if IsUndefinedNumber(word) or IsLetter(word):
-        return True
-    
-    # if word in dictionary or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word):
-    if re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word):
-        return False
-    
-    if spellchecker.spell(word) and word in ocr_dict:
-        return False
 
-    if '-' not in word:
-        return True
-    
-    return any(IsError(w, dictionary, ocr_dict) for w in word.split('-'))    
-    
+def IsDate(date):
+    match = re.match(r"\d{1,2}[-\.]\d{1,2}[-\.]\d{2,4}$", date)
+    return match is not None
+
 
 def IsUndefinedNumber(num):
     match = re.match('^[1-9]\d{4,5}$', num)
@@ -53,6 +53,23 @@ def IsAppendix(appendix):
 
 def IsLetter(docWord):
     return re.match('^[a-z\u0590-\u05fe]$', docWord)
+
+
+def IsError(word, dictionary, ocr_dict):
+    if IsUndefinedNumber(word) or IsLetter(word):
+        return True
+
+    # if word in dictionary or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word):
+    if dictionary[word] >= THRESHOLD or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word) or IsDate(word):
+        return False
+
+    if spellchecker.spell(word) and word in ocr_dict:
+        return False
+
+    if '-' not in word:
+        return True
+
+    return any(IsError(w, dictionary, ocr_dict) for w in word.split('-'))
 
 
 def create_dict_from_sec_ocr(pdf_path):
@@ -78,7 +95,7 @@ base_dir_shani = '/home/shanisam/OcrErrorDetection/pdf_for_ocr'
 
 
 def OcrWordToString(ocrWord):
-    return f'<error>{ocrWord["word"]}<error>' if ocrWord['isError'] else ocrWord["word"]
+    return f'<{ERROR}>{ocrWord["word"]}<{ERROR}>' if ocrWord['isError'] else ocrWord["word"]
 
 
 def OcrLineToString(ocrLine):
@@ -86,8 +103,18 @@ def OcrLineToString(ocrLine):
     return " ".join(line)
 
 
-with open('dict.json') as json_file:
-    dictionary = json.load(json_file)
+# with open('dict.json') as json_file:
+#     dictionary = json.load(json_file)
+
+with open('words.json') as json_file:
+    dictionary = defaultdict(int, json.load(json_file))
+
+numberOfWords = sum(dictionary.values())
+
+
+def P(word):
+    "Probability of `word`."
+    return dictionary[word] / numberOfWords
 
 
 def ErrorDetection(baseDir, filename):
@@ -123,4 +150,4 @@ def ErrorDetection(baseDir, filename):
             outFile.write(f'{line}\n')
 
 
-ErrorDetection(base_dir_shani, '123')
+ErrorDetection(baseDir, '146884')

@@ -19,8 +19,8 @@ def convert_pdf_to_image(pdf_path):
     if not os.path.exists(path_for_images):
         # Create the directory
         os.mkdir(path_for_images)
-    convert_from_path(pdf_path, output_folder=path_for_images)
-    # convert_from_path(pdf_path, output_folder=path_for_images, poppler_path=r'C:\Program Files\poppler-21.02.0\Library\bin')
+    # convert_from_path(pdf_path, output_folder=path_for_images)
+    convert_from_path(pdf_path, output_folder=path_for_images, poppler_path=r'C:\Program Files\poppler-21.02.0\Library\bin')
     return path_for_images
 
 
@@ -47,7 +47,7 @@ def ocr_on_images(images_path):
         if not os.path.isfile(infilename):
             continue
         # using Pillow's Image class to open the image and pytesseract to detect the string in the image
-        # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
         text_from_pic = pytesseract.image_to_string(Image.open(infilename), lang='heb')
         words = reSub(text_from_pic)
         ocr_texts.append(words)

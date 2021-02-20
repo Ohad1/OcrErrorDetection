@@ -4,6 +4,7 @@ import regex
 from bs4 import BeautifulSoup
 import re
 import os
+from collections import defaultdict
 
 
 def parseAct(xmlFile):
@@ -36,13 +37,15 @@ def reSub(line):
         # clause
         words[i] = re.sub(r'^\((XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\)', '', words[i])
         words[i] = re.sub(r'^\((xc|xl|l?x{0,3})(ix|iv|v?i{0,3})\)', '', words[i])
-        words[i] = re.sub(r'^\(\w\)', '', words[i])
+        words[i] = re.sub(r'\(\w\)', '', words[i])
         words[i] = re.sub(r'\(\D\d+\)', '', words[i])
         words[i] = re.sub(r'\(\d+\D\)', '', words[i])
         # rest
-        words[i] = re.sub(r'[^\".\'\w\s-]', '', words[i])
-        words[i] = re.sub(r'^[\"-.]', '', words[i])
-        words[i] = re.sub(r'[-.\"]$', '', words[i])
+        words[i] = re.sub(r'[^\"\.\'\w\s-]', '', words[i])
+        words[i] = re.sub(r'^[\"-\.]', '', words[i])
+        words[i] = re.sub(r'\.$', '', words[i])
+        words[i] = re.sub(r'[-\"]$', '', words[i])
+
         if words[i].count("'") > 1:
             words[i].strip("'")
             # output.append(words[i])
@@ -61,12 +64,16 @@ def CreateDictionary(inputDir):
                 for line in content:
                     words = reSub(line)
                     texts.append(words)
-    all_words = set(itertools.chain.from_iterable(texts))
-    all_words.discard('')
-    return all_words
+    # all_words = set(itertools.chain.from_iterable(texts))
+    # all_words.discard('')
+    WORDS = Counter(itertools.chain.from_iterable(texts))
+    return defaultdict(int, WORDS)
+
 
 
 # WORDS = Counter(itertools.chain.from_iterable(texts))
 # for w in all_words:
 #     print(w)
 # print(all_words)
+# words = CreateDictionary(os.curdir)
+# print()

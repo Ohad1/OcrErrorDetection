@@ -8,11 +8,11 @@ from collections import defaultdict
 
 
 def parseAct(xmlFile):
-"""
+    """
     arguments:
         xmlFile - full legislation file in xml format
     the function returns the content inside <p> tags in the xml file.
-"""
+    """
     content = []
     with open(xmlFile, encoding='utf8') as fobj:
         contents = fobj.read()
@@ -23,10 +23,10 @@ def parseAct(xmlFile):
 
 
 def IsClause(word):
-"""
+    """
     the function use regular expressions and return true if "word" is clause,
     otherwise - false.
-"""
+    """
     return re.match(r'\((XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\)$', word.upper()) or \
            re.match(r'\(\w\)$', word) or \
            re.match(r'\(\D\d+\)$', word) or \
@@ -34,12 +34,12 @@ def IsClause(word):
 
 
 def reSub(line):
-"""
+    """
     arguments:
         line - input sentence.
     Using regular experssion in order to return only the relevant words for detection 
     from 'line'.
-"""
+    """
     line = regex.sub(r'\p{Pd}', '-', line)
     words = line.split()
     for i in range(len(words)):
@@ -63,11 +63,11 @@ def reSub(line):
 
 
 def CreateDictionary(inputDir):
-"""
+    """
     arguments:
         inputDir - path of directory with all the xml files.
     the function creates dictionary composed of words from the xml files and returns it.
-"""
+    """
     texts = []
     for currentPath, folders, files in os.walk(inputDir):
         for file in files:

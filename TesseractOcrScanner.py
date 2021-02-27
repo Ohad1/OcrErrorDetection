@@ -5,13 +5,13 @@ from DictionaryCreator import *
 import os, sys
 
 
-def convert_pdf_to_image(pdf_path):
-"""
+def ConvertPdfToImage(pdf_path):
+    """
     arguments - 
         pdf_path: full path to pdf file.
     the function converts pdf file to directory with the name of the file, that contains 
     all the images.
-"""
+    """
     curr_dir_path = os.path.dirname(pdf_path)
 
     # extract file + extension of file
@@ -30,12 +30,12 @@ def convert_pdf_to_image(pdf_path):
     return path_for_images
 
 
-def change_extent_to_jpg(images_path):
-"""
+def ChangeExtentToJpg(images_path):
+    """
     arguments - 
         images_path: full path to images.
     the function converts extension of images from '.ppm' to '.jpg'
-"""
+    """
     for filename in os.listdir(images_path):
         infilename = os.path.join(images_path, filename)
         if not os.path.isfile(infilename):
@@ -45,13 +45,13 @@ def change_extent_to_jpg(images_path):
         output = os.rename(infilename, newname)
 
 
-def ocr_on_images(images_path):
-"""
+def OcrOnImages(images_path):
+    """
     arguments - 
         images_path: full path to images.
     the function uses the ocr library 'pytesseract' for detecting strings in the images
     and returns list of the words that found.
-"""
+    """
     ocr_texts = []
     for filename in os.listdir(images_path):
         infilename = os.path.join(images_path, filename)

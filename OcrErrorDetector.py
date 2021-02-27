@@ -4,7 +4,7 @@ import os
 import sys
 import docx2txt
 from DictionaryCreator import *
-from OCRScanner import *
+from TesseractOcrScanner import *
 from nltk import bigrams
 import copy
 import json

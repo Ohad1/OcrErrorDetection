@@ -18,50 +18,50 @@ ERROR = 'ש'
 # ----------------------- HELP FUNCTIONS ------------------------
 
 def IsDate(date):
-"""
-    the function checks if the given input is date.
-"""
+    """
+        the function checks if the given input is date.
+    """
     match = re.match(r"\d{1,2}[-\.]\d{1,2}[-\.]\d{2,4}$", date)
     return match is not None
 
 
 def IsUndefinedNumber(num):
-"""
-    the function checks if the given input is number of 5 or 6 digits.
-    this number might be foot error. 
-"""
+    """
+        the function checks if the given input is number of 5 or 6 digits.
+        this number might be foot error. 
+    """
     match = re.match(r'^[1-9]\d{4,5}$', num)
     return match is not None
 
 
 def IsYear(year):
-"""
-    the function checks if the given input is year.
-"""
+    """
+        the function checks if the given input is year.
+    """
     match = re.match(r'.*([1-3][0-9]{3})', year)
     return match is not None
 
 
 def IsFootnote(footnote):
-"""
-    the function checks if the given input is date.
-"""
+    """
+        the function checks if the given input is date.
+    """
     match = re.match(r'^[1-9]\d{0,1}$', footnote)
     return match is not None
 
 
 def IsLetter(docWord):
-"""
-    the function checks if the given input is letter.
-"""
+    """
+        the function checks if the given input is letter.
+    """
     return re.match(r'^[a-z\u0590-\u05fe]$', docWord)
 
 
 def IsError(word, dictionary, ocrDict):
-"""
-    the function checks if the given input (word) is a correct word or not 
-    according to xml dictionary and ocrDict.
-"""
+    """
+        the function checks if the given input (word) is a correct word or not 
+        according to xml dictionary and ocrDict.
+    """
     if IsUndefinedNumber(word) or IsLetter(word):
         return True
 
@@ -78,14 +78,14 @@ def IsError(word, dictionary, ocrDict):
 
 
 def create_dict_from_sec_ocr(pdf_path):
-"""
-    arguments:
-        pdf_path - full path to pdf file
-    the function returns list of words that detected from ocr scan on pdf file.
-"""
-    path_for_images = convert_pdf_to_image(pdf_path)
-    change_extent_to_jpg(path_for_images)
-    ocr_dict = ocr_on_images(path_for_images)
+    """
+        arguments:
+            pdf_path - full path to pdf file
+        the function returns list of words that detected from ocr scan on pdf file.
+    """
+    path_for_images = ConvertPdfToImage(pdf_path)
+    ChangeExtentToJpg(path_for_images)
+    ocr_dict = OcrOnImages(path_for_images)
     return ocr_dict
 
 def OcrWordToString(ocrWord):
@@ -96,14 +96,14 @@ def OcrLineToString(ocrLine):
     return " ".join(line)
 
 def ErrorDetection(baseDir, filename, dictionary):
-"""
-    arguments:
-        baseDir - full path to directory of pdf and docx files.
-        fileName - name of the file contains a law.
-        dictionary - words from xml files
+    """
+        arguments:
+            baseDir - full path to directory of pdf and docx files.
+            fileName - name of the file contains a law.
+            dictionary - words from xml files
 
-    the function creates txt file of the contect of the given law and marks errors.
-"""
+        the function creates txt file of the contect of the given law and marks errors.
+    """
     filePath = os.path.join(baseDir, filename)
     docx_path = f"{filePath}.DOCx"
     pdf_path = f"{filePath}.PDF"

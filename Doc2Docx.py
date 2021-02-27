@@ -3,6 +3,7 @@ import win32com.client
 
 
 def Doc2Docx(baseDir):
+    """Function to convert .doc files to .docx files"""
     word = win32com.client.Dispatch("Word.application")
     for dir_path, dirs, files in os.walk(baseDir):
         for file_name in files:

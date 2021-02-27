@@ -6,6 +6,12 @@ import os, sys
 
 
 def convert_pdf_to_image(pdf_path):
+"""
+    arguments - 
+        pdf_path: full path to pdf file.
+    the function converts pdf file to directory with the name of the file, that contains 
+    all the images.
+"""
     curr_dir_path = os.path.dirname(pdf_path)
 
     # extract file + extension of file
@@ -24,10 +30,12 @@ def convert_pdf_to_image(pdf_path):
     return path_for_images
 
 
-# convert_pdf_to_image('/home/shanisam/OcrErrorDetection/pdf_for_ocr/146884.PDF')
-
-
 def change_extent_to_jpg(images_path):
+"""
+    arguments - 
+        images_path: full path to images.
+    the function converts extension of images from '.ppm' to '.jpg'
+"""
     for filename in os.listdir(images_path):
         infilename = os.path.join(images_path, filename)
         if not os.path.isfile(infilename):
@@ -37,17 +45,20 @@ def change_extent_to_jpg(images_path):
         output = os.rename(infilename, newname)
 
 
-# change_extent_to_jpg('/home/shanisam/OcrErrorDetection/pdf_for_ocr/146884_img')
-
-
 def ocr_on_images(images_path):
+"""
+    arguments - 
+        images_path: full path to images.
+    the function uses the ocr library 'pytesseract' for detecting strings in the images
+    and returns list of the words that found.
+"""
     ocr_texts = []
     for filename in os.listdir(images_path):
         infilename = os.path.join(images_path, filename)
         if not os.path.isfile(infilename):
             continue
+
         # using Pillow's Image class to open the image and pytesseract to detect the string in the image
-        # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
         text_from_pic = pytesseract.image_to_string(Image.open(infilename), lang='heb')
         words = reSub(text_from_pic)
         ocr_texts.append(words)

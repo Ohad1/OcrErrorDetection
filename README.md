@@ -1,4 +1,5 @@
 # OcrErrorDetection
+<div dir="rtl">
 <p dir="rtl">
 <strong><span style="text-decoration:underline;">איתור חשדות לשגיאות במסמך שעבר ocr </span></strong></p>
 
@@ -119,3 +120,4 @@ Semi structured - קבצי XML </p>
 
 <p dir="rtl">
  </p>
+ </div>

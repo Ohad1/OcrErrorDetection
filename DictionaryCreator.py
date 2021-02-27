@@ -39,7 +39,8 @@ def reSub(line):
         words[i] = re.sub(r'^\((xc|xl|l?x{0,3})(ix|iv|v?i{0,3})\)', '', words[i])
         words[i] = re.sub(r'\(\w\)', '', words[i])
         words[i] = re.sub(r'\(\D\d+\)', '', words[i])
-        words[i] = re.sub(r'\(\d+\D\)', '', words[i])
+        words[i] = re.sub(r'\([1-9]\d*\D\)', '', words[i])
+        words[i] = re.sub(r'^[1-9]\.$', '', words[i])
         # rest
         words[i] = re.sub(r'[^\"\.\'\w\s-]', '', words[i])
         words[i] = re.sub(r'^[\"-\.]', '', words[i])

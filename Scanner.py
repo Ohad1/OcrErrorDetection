@@ -9,16 +9,16 @@ import copy
 import json
 
 
-# import hunspell
-#
-# spellchecker = hunspell.HunSpell('/usr/share/hunspell/he_IL.dic',
-#                                  '/usr/share/hunspell/he_IL.aff')
-class SpellCheckerStub:
-    def spell(self, word):
-        return True
+import hunspell
+
+spellchecker = hunspell.HunSpell('/usr/share/hunspell/he_IL.dic',
+                                 '/usr/share/hunspell/he_IL.aff')
+# class SpellCheckerStub:
+#     def spell(self, word):
+#         return True
 
 
-spellchecker = SpellCheckerStub()
+# spellchecker = SpellCheckerStub()
 
 # ----------------------- HELP FUNCTIONS ------------------------
 THRESHOLD = 10
@@ -37,22 +37,22 @@ def IsDate(date):
 
 
 def IsUndefinedNumber(num):
-    match = re.match('^[1-9]\d{4,5}$', num)
+    match = re.match(r'^[1-9]\d{4,5}$', num)
     return match is not None
 
 
 def IsYear(year):
-    match = re.match('[1-3][0-9]{3}$', year)
+    match = re.match(r'.*([1-3][0-9]{3})', year)
     return match is not None
 
 
 def IsAppendix(appendix):
-    match = re.match('^[1-9]\d{0,1}$', appendix)
+    match = re.match(r'^[1-9]\d{0,1}$', appendix)
     return match is not None
 
 
 def IsLetter(docWord):
-    return re.match('^[a-z\u0590-\u05fe]$', docWord)
+    return re.match(r'^[a-z\u0590-\u05fe]$', docWord)
 
 
 def IsError(word, dictionary, ocr_dict):
@@ -60,7 +60,7 @@ def IsError(word, dictionary, ocr_dict):
         return True
 
     # if word in dictionary or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word):
-    if dictionary[word] >= THRESHOLD or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word) or IsDate(word):
+    if dictionary[word] >= THRESHOLD or re.match('^[a-z\u0590-\u05fe]{1,2}\'$', word) or IsDate(word) or re.match('^\d+$', word) or re.match(r'^\w+\"\w$', word):
         return False
 
     if spellchecker.spell(word) and word in ocr_dict:
@@ -136,6 +136,8 @@ def ErrorDetection(baseDir, filename):
     for lineIndex, ocrLine in enumerate(ocrLines):
         for wordIndex, ocrWord in enumerate(ocrLine):
             word = ocrLines[lineIndex][wordIndex]['word']
+            if '11965' in word:
+                print()
             # if not IsValid(word, dictionary) or IsUndefinedNumber(word) or IsLetter(word) or (word not in tesseractOcrDict):
             ocrLines[lineIndex][wordIndex]['isError'] = IsError(word, dictionary, tesseractOcrDict)
         bg = list(bigrams(ocrLine))
@@ -150,4 +152,4 @@ def ErrorDetection(baseDir, filename):
             outFile.write(f'{line}\n')
 
 
-ErrorDetection(baseDir, '146884')
+ErrorDetection(base_dir_shani, '148476')

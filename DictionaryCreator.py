@@ -8,6 +8,11 @@ from collections import defaultdict
 
 
 def parseAct(xmlFile):
+"""
+    arguments:
+        xmlFile - full legislation file in xml format
+    the function returns the content inside <p> tags in the xml file.
+"""
     content = []
     with open(xmlFile, encoding='utf8') as fobj:
         contents = fobj.read()
@@ -17,10 +22,11 @@ def parseAct(xmlFile):
     return content
 
 
-# read משרד המשפטים xml
-
-
 def IsClause(word):
+"""
+    the function use regular expressions and return true if "word" is clause,
+    otherwise - false.
+"""
     return re.match(r'\((XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\)$', word.upper()) or \
            re.match(r'\(\w\)$', word) or \
            re.match(r'\(\D\d+\)$', word) or \
@@ -28,11 +34,14 @@ def IsClause(word):
 
 
 def reSub(line):
+"""
+    arguments:
+        line - input sentence.
+    Using regular experssion in order to return only the relevant words for detection 
+    from 'line'.
+"""
     line = regex.sub(r'\p{Pd}', '-', line)
-    # line = re.sub(r'[^\w\s־-–־]', '', line)
-    # line = re.sub(r'[^\".\w\s-]', '', line)
     words = line.split()
-    # output = []
     for i in range(len(words)):
         # clause
         words[i] = re.sub(r'^\((XC|XL|L?X{0,3})(IX|IV|V?I{0,3})\)', '', words[i])
@@ -49,32 +58,26 @@ def reSub(line):
 
         if words[i].count("'") > 1:
             words[i].strip("'")
-            # output.append(words[i])
     words = list(filter(lambda a: a != '', words))
     return words
 
 
 def CreateDictionary(inputDir):
+"""
+    arguments:
+        inputDir - path of directory with all the xml files.
+    the function creates dictionary composed of words from the xml files and returns it.
+"""
     texts = []
     for currentPath, folders, files in os.walk(inputDir):
-        # if len(texts) >= 10:
-        #     break
         for file in files:
             if file.endswith(".xml"):
                 content = parseAct(currentPath + "/" + file)
                 for line in content:
                     words = reSub(line)
                     texts.append(words)
-    # all_words = set(itertools.chain.from_iterable(texts))
-    # all_words.discard('')
     WORDS = Counter(itertools.chain.from_iterable(texts))
     return defaultdict(int, WORDS)
 
 
 
-# WORDS = Counter(itertools.chain.from_iterable(texts))
-# for w in all_words:
-#     print(w)
-# print(all_words)
-# words = CreateDictionary(os.curdir)
-# print()

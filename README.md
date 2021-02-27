@@ -1,7 +1,6 @@
-# OcrErrorDetection
 <div dir="rtl">
 <p dir="rtl">
-<strong><span style="text-decoration:underline;">איתור חשדות לשגיאות במסמך שעבר ocr </span></strong></p>
+<h1>איתור חשדות לשגיאות במסמך שעבר ocr </h1></p>
 
 
 <p dir="rtl">
@@ -9,7 +8,7 @@
 
 
 <p dir="rtl">
-<strong>רקע:</strong></p>
+<h2>רקע:</h2></p>
 
 
 <p dir="rtl">
@@ -33,7 +32,7 @@
             <li>בלבל בין "(מרכאות) לבין זוג גרשיים (' ')</li>
         </ol></p>
 <p dir="rtl">
-<strong>הנחיות שימוש בתכנית:</strong></p>
+<h2>הנחיות שימוש בתכנית</h2></p>
 
 
 
@@ -42,7 +41,7 @@
 2. הריצו את התוכנית הראשית OcrErrorDetector.py אשר מקבלת כקלט מחרוזת של הנתיב לתיקייה בה נמצאים קבצי ה-PDF וקבצי ה- DOCX התואמים להם. 
 
     <p dir="rtl">
-<span style="text-decoration:underline;">דוגמא להרצה:</span> "python OcrErrorDetector.py "/home/username/OcrFolder</p>
+<strong style="text-decoration:underline;">דוגמא להרצה:</strong> "python OcrErrorDetector.py "/home/username/OcrFolder</p>
 
 
 3. בסיום הריצה, יווצרו קבצי txt בעלי שם זהה לקבצי ה-PDF וה-DOCX. קבצים אלו יכילו את תוכן כל אחד מהחוקים בצירוף תגית &lt;ש> לכל מילה החשודה כשגיאה.
@@ -52,7 +51,7 @@
 
 
 <p dir="rtl">
-<strong><span style="text-decoration:underline;">מטרת הפרויקט:</span></strong></p>
+<h2>מטרת הפרויקט</h2></p>
 
 
 <p dir="rtl">
@@ -60,7 +59,7 @@
 
 
 <p dir="rtl">
-<span style="text-decoration:underline;">פירוט על שיטת העבודה:</span> על מנת לאתר את השגיאות במסמכים השונים ביצענו את הצעדים הבאים על מנת לאתר את החשדות בצורה המקיפה ביותר:</p>
+<span style="text-decoration:underline;">פירוט על שיטת העבודה:</span> על מנת לאתר את השגיאות במסמכים השונים ביצענו את הצעדים הבאים על מנת לאתר את החשדות בצורה המקיפה ביותר</p>
 
 
 
@@ -73,7 +72,7 @@
         </ul></p>
 
 <p dir="rtl">
-<strong><span style="text-decoration:underline;">תיאור הפרויקט במונחים של מדעי הרוח הדיגיטליים :</span></strong></p>
+<h2>תיאור הפרויקט במונחים של מדעי הרוח הדיגיטליים</h2></p>
 
 
 <p dir="rtl">
@@ -89,11 +88,11 @@ Semi structured - קבצי XML </p>
 
 
 <p dir="rtl">
-<strong><span style="text-decoration:underline;">פתרון הבעיה + סיכום</span></strong></p>
+<h2>פתרון הבעיה + סיכום</h2></p>
 
 
 <p dir="rtl">
-<strong><span style="text-decoration:underline;">הערכת התוצאות:</span></strong></p>
+<h3>הערכת התוצאות</h3></p>
 
 
 <p dir="rtl">
@@ -108,7 +107,8 @@ Semi structured - קבצי XML </p>
         </ul></p>
 
 <p dir="rtl">
-מסקנות:</p>
+<h3>מסקנות</h3></p>
+
 
 
 

@@ -183,7 +183,6 @@ Conversion notes:
 <strong>דוגמאות:</strong></p>
 
 
-
 <table>
   <tr>
    <td><p dir="rtl">
@@ -246,7 +245,6 @@ Conversion notes:
    </td>
   </tr>
 </table>
-
 
 <p dir="rtl">
 המילים "המדיבה", "וירקרק" הן שגיאות שהצלחנו לאתר (True Positive)</p>

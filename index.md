@@ -145,36 +145,43 @@ Conversion notes:
 
 <table>
   <tr>
-   <td><strong>False</strong>
+   <td>
    </td>
    <td><strong>True</strong>
    </td>
-   <td>
+   <td><p dir="rtl">
+<strong>False</strong></p>
+
    </td>
   </tr>
   <tr>
    <td><p dir="rtl">
-18</p>
+<strong>Positive</strong></p>
 
    </td>
    <td><p dir="rtl">
 89</p>
 
    </td>
-   <td><strong>Positive</strong>
+   <td><p dir="rtl">
+18</p>
+
    </td>
   </tr>
   <tr>
    <td><p dir="rtl">
-3</p>
+<strong>Negative</strong></p>
 
    </td>
    <td>
    </td>
-   <td><strong>Negative</strong>
+   <td><p dir="rtl">
+3</p>
+
    </td>
   </tr>
 </table>
+
 
 
 <p dir="rtl">

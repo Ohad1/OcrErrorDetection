@@ -198,7 +198,7 @@ Conversion notes:
 <table>
   <tr>
    <td><p dir="rtl">
-<strong>מקור</strong></p>
+<strong>האם השגיאה אותרה?</strong></p>
 
    </td>
    <td><p dir="rtl">
@@ -206,19 +206,11 @@ Conversion notes:
 
    </td>
    <td><p dir="rtl">
-<strong>האם השגיאה אותרה?</strong></p>
+<strong>מקור</strong></p>
 
    </td>
   </tr>
   <tr>
-   <td><p dir="rtl">
-נשיא המדינה</p>
-
-   </td>
-   <td><p dir="rtl">
-בשיא המדיבה</p>
-
-   </td>
    <td><p dir="rtl">
 <strong>בשיא </strong>- לא זוהתה כשגיאה, מאחר ומילה זו קיימת במילון ה-XML.</p>
 
@@ -227,10 +219,18 @@ Conversion notes:
 <strong>המדיבה </strong>- זוהתה כשגיאה</p>
 
    </td>
+   <td><p dir="rtl">
+בשיא המדיבה</p>
+
+   </td>
+   <td><p dir="rtl">
+נשיא המדינה</p>
+
+   </td>
   </tr>
   <tr>
    <td><p dir="rtl">
-"על אף האמור בכל <span style="text-decoration:underline;">חיקוק</span> לא יינתן.."</p>
+<strong>וירקרק </strong>- זוהתה כשגיאה באמצעות המילון החיצוני, לא הופיעה במילון ה- XML.</p>
 
    </td>
    <td><p dir="rtl">
@@ -238,21 +238,21 @@ Conversion notes:
 
    </td>
    <td><p dir="rtl">
-<strong>וירקרק </strong>- זוהתה כשגיאה באמצעות המילון החיצוני, לא הופיעה במילון ה- XML.</p>
+"על אף האמור בכל <span style="text-decoration:underline;">חיקוק</span> לא יינתן.."</p>
 
    </td>
   </tr>
   <tr>
    <td><p dir="rtl">
-"..דגלים וסמלים דומים.."</p>
-
-   </td>
-   <td><p dir="rtl">
-"..דגלים וסמלים דומים.."</p>
-
-   </td>
-   <td><p dir="rtl">
 <strong>דגלים</strong>- מילה תקינה שזוהתה כשגיאה.</p>
+
+   </td>
+   <td><p dir="rtl">
+"..דגלים וסמלים דומים.."</p>
+
+   </td>
+   <td><p dir="rtl">
+"..דגלים וסמלים דומים.."</p>
 
    </td>
   </tr>

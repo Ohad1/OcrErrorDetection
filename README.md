@@ -1,3 +1,3 @@
-# OcrErrorDetection
+# OCR Error Detection
 
-How to use the program:
+Link to Github.io page: https://ohad1.github.io/OcrErrorDetection/

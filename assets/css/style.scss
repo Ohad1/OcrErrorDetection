@@ -1,0 +1,56 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.main-content p {
+  direction: rtl;  /* Right to Left */
+  /*text-align: right;*/
+}
+.main-content code {
+  direction: ltr;  /* Right to Left */
+  text-align: left;
+}
+.main-content h1 {
+  direction: rtl;  /* Right to Left */
+  /*text-align: right;*/
+}
+
+.main-content h2 {
+  direction: rtl;  /* Right to Left */
+  /*text-align: right;*/
+}
+
+.main-content h3 {
+  direction: rtl;  /* Right to Left */
+  /*text-align: right;*/
+}
+.main-content ul {
+  direction: rtl;  /* Right to Left */
+  margin-right: 20 px;
+  text-align: right;
+}
+
+.main-content li {
+  direction: rtl;  /* Right to Left */
+  margin-right: 20 px;
+  text-align: right;
+}
+
+.main-content pre.highlight{
+    text-align: left;
+  
+}
+.main-content highlight.c1{
+    color: #345678;
+  
+}
+.main-content .main-content table td{
+    width: 800 px;
+  
+}
+/*.main-content td{
+    width: 280 px;
+  
+}*/
+

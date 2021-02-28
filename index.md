@@ -30,9 +30,6 @@ Conversion notes:
 <p style="color: red; font-weight: bold">Links to alert messages:</p><a href="#gdcalert1">alert1</a>
 <a href="#gdcalert2">alert2</a>
 
-<p style="color: red; font-weight: bold">>>>>> PLEASE check and correct alert issues and delete this message and the inline alerts.<hr></p>
-
-
 <p>
 <p dir="rtl">
 <strong><span style="text-decoration:underline;">איתור ותיקון שגיאות במסמך שעבר OCR</span></strong></p>

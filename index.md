@@ -34,10 +34,7 @@
  
 <li>אותיות במקום מספרים: 
 
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-<img src="images/image1.png" width="" alt="alt_text" title="image_tooltip">
+<img src="resources/Picture.png" width="" alt="alt_text" title="image_tooltip">
  -> ג98ו2, 1 -> ו
  
 <li>החלפה בין נ' ל - 'ב: המדינה -> המדיבה
@@ -46,10 +43,7 @@
 
 <li>שגיאות ברישום הערות שוליים: 
 
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-<img src="images/image2.png" width="" alt="alt_text" title="image_tooltip">
+<img src="resources/Picture2.png" width="" alt="alt_text" title="image_tooltip">
  -> התשכ"ג-1963 1 או התשכ"ג-11963 
 
 <li>בלבול בין "(מרכאות) לבין זוג גרשיים (' ')
